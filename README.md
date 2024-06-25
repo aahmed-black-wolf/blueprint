@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project README
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project has been upgraded to leverage the latest technologies for improved performance, efficiency, and maintainability. The primary upgrades include:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js**: Upgraded to the latest version for better performance and new features.
+- **React Hook Form**: Implemented for form control, replacing the old static form handling with a more dynamic and efficient approach.
+- **Bun**: Adopted as the JavaScript runtime for its stability and speed, enhancing CI/CD operations and server performance.
+- **next-intl**: Integrated for efficient localization solutions.
+- **NextUI and Tailwind CSS**: Used to build an efficient and modern user interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Improve project structure & layout
+- Apply best practices and optimize for performance
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Next.js
 
-## Learn More
+Upgraded to the latest version of Next.js to take advantage of improved performance, server-side rendering, static site generation, and other new features.
 
-To learn more about Next.js, take a look at the following resources:
+### React Hook Form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Replaced the previous static form handling logic with React Hook Form, which simplifies form management, validation, and enhances performance.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Bun
 
-## Deploy on Vercel
+Using Bun as the JavaScript runtime due to its stability and faster execution times, especially beneficial for CI/CD pipelines and server-side operations.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### next-intl
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Implemented next-intl for localization, providing an efficient and scalable solution for handling multiple languages and internationalization.
+
+### NextUI and Tailwind CSS
+
+- **NextUI**: A modern and customizable component library that works seamlessly with React and Next.js.
+- **Tailwind CSS**: A utility-first CSS framework that allows for rapid UI development and customization.
