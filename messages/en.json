@@ -1,0 +1,11 @@
+{
+  "Home": {
+    "home": "Home",
+    "comments": "Comments",
+    "link1": "link1",
+    "link2": "link2"
+  },
+  "Notfound": {
+    "message": "Page not found | 404"
+  }
+}
