@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/src/config/site';
 import {
   Avatar,
+  cn,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -34,7 +35,10 @@ export default function Header() {
   }, [pathName]);
 
   return (
-    <Navbar maxWidth="2xl">
+    <Navbar
+      className={cn(pathName.includes("auth") && "hidden")}
+      maxWidth="2xl"
+    >
       <div className="sm:hidden flex justify-between w-full gap-6">
         <Dropdown placement="bottom-end">
           <DropdownTrigger>

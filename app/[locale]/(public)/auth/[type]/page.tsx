@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import Login from '@/src/components/Auth/Login/Login';
@@ -10,6 +11,12 @@ type Props = {
     type: "login" | "register";
   };
 };
+
+export function generateMetadata({ params }: Props): Metadata {
+  return {
+    title: params?.type === "login" ? "Login" : "Register",
+  };
+}
 
 export default function page({ params }: Props) {
   const components = {

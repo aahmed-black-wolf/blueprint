@@ -17,13 +17,13 @@ type Props = {
   params: { locale: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export function generateMetadata({ params }: Props): Metadata {
   return {
     title: {
       // @ts-ignore
       default: siteConfig.title[params.locale],
       // @ts-ignore
-      template: `%s - ${siteConfig.title[params.locale]}`,
+      template: `${siteConfig.title[params.locale]} - %s`,
     },
     // @ts-ignore
     description: siteConfig.description[params.locale],

@@ -11,10 +11,12 @@ export default function Notfound() {
   const router = useRouter();
   const t = useTranslations("Notfound");
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="h-[calc(100vh-100px)] w-full flex justify-center items-center">
       <Button
-        className="border-none rtl:rotate-180 fixed top-10 rtl:right-10 ltr:left-10 min-w-max"
+        className=" rtl:rotate-180 p-0 min-w-[50px] h-[50px] fixed bottom-10 rtl:right-10 ltr:left-10"
+        radius="full"
         variant="bordered"
+        size="lg"
         onClick={() => router.push("/")}
       >
         <BiArrowBack />
