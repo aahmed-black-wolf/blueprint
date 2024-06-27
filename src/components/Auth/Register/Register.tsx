@@ -1,27 +1,20 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { useLocale } from 'next-intl';
-import Link from 'next/link';
-import {
-  Controller,
-  FormProvider,
-  useForm,
-} from 'react-hook-form';
+import { useLocale } from "next-intl";
+import Link from "next/link";
+import { FormProvider, useForm } from "react-hook-form";
 
-import { loginRequest } from '@/src/api/authRequests/loginRequest';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Input,
-} from '@nextui-org/react';
+import { useSetter } from "@/src/hooks/apiRequest";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input } from "@nextui-org/react";
 
-import PasswordVisibility from '../PasswordVisibility';
+import PasswordVisibility from "../PasswordVisibility";
 import {
   inputsFields,
   RegisterSchema,
   RegisterSchemaType,
-} from './RegisterSchema';
+} from "./RegisterSchema";
 
 export default function Register() {
   const methods = useForm<RegisterSchemaType>({
@@ -31,7 +24,34 @@ export default function Register() {
     "password"
   );
   const locale = useLocale();
-  const { handleSubmit, control } = methods;
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = methods;
+  const { mutate, data, isPending } = useSetter({
+    endPoint: "/users/add",
+    key: "registerRequest",
+  });
+
+  const registerRequest = (data: RegisterSchemaType) => {
+    mutate({
+      username: data.userName,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+    });
+  };
+
+  useEffect(() => {
+    if (data && !isPending) {
+      reset();
+    }
+  }, [data, isPending]);
+
+  console.log(data);
 
   return (
     <div className="flex  px-4 justify-center items-center h-screen w-full">
@@ -41,34 +61,31 @@ export default function Register() {
           <form
             className="w-full"
             id="register"
-            onSubmit={handleSubmit(loginRequest)}
+            onSubmit={handleSubmit(registerRequest)}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
-              {inputsFields?.map((inp) => (
-                <Controller
-                  control={control}
-                  name={inp?.name as any}
-                  render={({ field, fieldState: { error } }) => (
-                    <Input
-                      {...inp}
-                      onValueChange={field?.onChange}
-                      ref={field?.ref}
-                      isInvalid={!!error?.message}
-                      errorMessage={error?.message}
-                      type={
-                        inp?.type === "password" ? isVisiblePass : inp?.type
-                      }
-                      endContent={
-                        inp?.type === "password" ? (
-                          <PasswordVisibility
-                            isVisiblePass={isVisiblePass}
-                            setIsVisiblePass={setIsVisiblePass}
-                          />
-                        ) : null
-                      }
-                      variant="underlined"
-                    />
-                  )}
+              {inputsFields?.map((inp, index) => (
+                <Input
+                  //  @ts-ignore
+                  {...register(inp.name)}
+                  key={index}
+                  //  @ts-ignore
+                  isInvalid={!!errors[inp.name]?.message}
+                  errorMessage={
+                    //  @ts-ignore
+                    errors[inp.name]?.message
+                  }
+                  {...inp}
+                  type={inp?.type === "password" ? isVisiblePass : inp?.type}
+                  endContent={
+                    inp?.type === "password" ? (
+                      <PasswordVisibility
+                        isVisiblePass={isVisiblePass}
+                        setIsVisiblePass={setIsVisiblePass}
+                      />
+                    ) : null
+                  }
+                  variant="underlined"
                 />
               ))}
             </div>
@@ -86,6 +103,8 @@ export default function Register() {
                 form="register"
                 type="submit"
                 size="lg"
+                isLoading={isPending}
+                isDisabled={isPending}
                 className="w-[200px] "
                 color="primary"
               >
