@@ -1,21 +1,38 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import { useLocale } from "next-intl";
-import Link from "next/link";
-import { FormProvider, useForm } from "react-hook-form";
+import {
+  useLocale,
+  useTranslations,
+} from 'next-intl';
+import Link from 'next/link';
+import {
+  FormProvider,
+  useForm,
+} from 'react-hook-form';
 
-import { useSetter } from "@/src/hooks/apiRequest";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@nextui-org/react";
+import { useSetter } from '@/src/hooks/apiRequest';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Button,
+  Input,
+} from '@nextui-org/react';
 
-import PasswordVisibility from "../PasswordVisibility";
-import { inputsFields, LoginSchema, LoginSchemaType } from "./LoginSchema";
+import PasswordVisibility from '../PasswordVisibility';
+import {
+  inputsFields,
+  LoginSchema,
+  LoginSchemaType,
+} from './LoginSchema';
 
 export default function Login() {
   const methods = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
   });
+  const t = useTranslations("Auth");
   const [isVisiblePass, setIsVisiblePass] = useState<"password" | "text">(
     "password"
   );
@@ -57,7 +74,9 @@ export default function Login() {
   return (
     <div className="flex justify-center items-center h-screen w-full">
       <div>
-        <h1 className="mb-[50px] text-2xl text-center uppercase">Login</h1>
+        <h1 className="mb-[50px] text-2xl text-center uppercase">
+          {t("login")}
+        </h1>
         <FormProvider {...methods}>
           <form
             className="min-w-[300px]  flex flex-col gap-[20px]"
@@ -76,6 +95,7 @@ export default function Login() {
                   errors[inp.name]?.message
                 }
                 {...inp}
+                label={t(inp?.label)}
                 type={inp?.type === "password" ? isVisiblePass : inp?.type}
                 endContent={
                   inp?.type === "password" ? (
@@ -90,12 +110,12 @@ export default function Login() {
             ))}
 
             <div className="w-full  text-sm">
-              Don't have an account ?{" "}
+              {t("not_have_account")}{" "}
               <Link
                 className="text-secondary-600 underline"
                 href={`/${locale}/auth/register`}
               >
-                register
+                {t("register")}
               </Link>
             </div>
 
@@ -108,7 +128,7 @@ export default function Login() {
               className="w-full mt-4"
               color="primary"
             >
-              Sign in
+              {t("sign_in")}
             </Button>
           </form>
         </FormProvider>

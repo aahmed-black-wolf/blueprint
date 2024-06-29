@@ -4,9 +4,16 @@ import {
   useState,
 } from 'react';
 
-import { useTranslations } from 'next-intl';
+import { setCookie } from 'cookies-next';
+import {
+  useLocale,
+  useTranslations,
+} from 'next-intl';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {
+  usePathname,
+  useRouter,
+} from 'next/navigation';
 
 import { siteConfig } from '@/src/config/site';
 import {
@@ -29,6 +36,17 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = useTranslations("Home");
   const pathName = usePathname();
+  const router = useRouter();
+  const locale = useLocale();
+
+  const handleLanguageSwitcher = () => {
+    let lang = pathName.split("/")[1];
+    if (lang === "en") lang = "ar";
+    else lang = "en";
+    const href = pathName.replace(/^\/(en|ar)/, `/${lang}`);
+    setCookie("NEXT_LOCALE", lang);
+    router.push(href);
+  };
 
   useEffect(() => {
     setIsMenuOpen(true);
@@ -82,7 +100,11 @@ export default function Header() {
             <BlueLogo />
           </NavbarBrand>
           {siteConfig.navItems.map((route, index) => (
-            <Link key={route.id} className="w-max" href={route.href}>
+            <Link
+              key={route.id}
+              className="w-max"
+              href={`/${locale}/${route.href}`}
+            >
               {t(route.label)}
             </Link>
           ))}
@@ -101,17 +123,18 @@ export default function Header() {
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">{t("sign_as")}</p>
               <p className="font-semibold">zoey@example.com</p>
             </DropdownItem>
-            {
-              siteConfig.settings?.map((item) => (
-                <DropdownItem key={item?.key}>{item?.name}</DropdownItem>
-              )) as any
-            }
-
+            <DropdownItem
+              onClick={handleLanguageSwitcher}
+              key="logout"
+              color="primary"
+            >
+              {t("lang")}
+            </DropdownItem>
             <DropdownItem key="logout" color="danger">
-              Log Out
+              {t("log_out")}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

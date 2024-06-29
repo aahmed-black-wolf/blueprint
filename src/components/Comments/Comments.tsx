@@ -1,9 +1,19 @@
 import React from 'react';
 
+import { Divider } from '@nextui-org/react';
+
+import CommentForm from './CommentForm';
+import CommentProvider from './CommentProvider';
+import CommentsContent from './CommentsContent';
+
 export default function Comments() {
   return (
-    <div className="h-[calc(100vh-80px)] w-full flex justify-center items-center">
-      <h1 className="text-3xl font-[600] text-primary">Comments Page</h1>
+    <div className="px-2 pt-[40px]">
+      <CommentProvider>
+        <CommentForm />
+        <Divider className="my-[30px]" />
+        <CommentsContent />
+      </CommentProvider>
     </div>
   );
 }

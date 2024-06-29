@@ -15,12 +15,12 @@ export const RegisterSchema = z
   });
 
 export const inputsFields = [
-  { name: "firstName", type: "text", label: "First Name" },
-  { name: "lastName", type: "text", label: "Last Name" },
-  { name: "email", type: "email", label: "Email" },
-  { name: "userName", type: "text", label: "User Name" },
-  { name: "password", type: "password", label: "Password" },
-  { name: "confirmPassword", type: "password", label: "Confirm Password" },
+  { name: "firstName", type: "text", label: "first_name" },
+  { name: "lastName", type: "text", label: "last_name" },
+  { name: "email", type: "email", label: "email" },
+  { name: "userName", type: "text", label: "user_name" },
+  { name: "password", type: "password", label: "password" },
+  { name: "confirmPassword", type: "password", label: "confirm_password" },
 ];
 
 export type RegisterSchemaType = z.infer<typeof RegisterSchema>;

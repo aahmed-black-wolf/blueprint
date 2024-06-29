@@ -3,6 +3,7 @@ import '@/src/styles/globals.css';
 import { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import NextTopLoader from 'nextjs-toploader';
 
 import Header from '@/src/components/Layout/Header';
 import UiProvider from '@/src/components/Layout/RootLayout';
@@ -71,7 +72,20 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <UiProvider>
-            <div className="container mx-auto ps-6">{children}</div>
+            <div className="container mx-auto ps-6">
+              <NextTopLoader
+                color="#2299DD"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={3}
+                crawl={true}
+                showSpinner={true}
+                easing="ease"
+                speed={200}
+                shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+              />
+              {children}
+            </div>
           </UiProvider>
         </NextIntlClientProvider>
       </body>

@@ -44,7 +44,7 @@ export const useGetter = ({
     queryFn: async () => {
       try {
         const req = await createAxiosInstance(base).get(endPoint);
-        return req.data.data;
+        return req.data;
       } catch (error) {
         // Handle error (e.g., log it)
         throw error;

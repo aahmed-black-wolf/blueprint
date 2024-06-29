@@ -1,20 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import { useLocale } from "next-intl";
-import Link from "next/link";
-import { FormProvider, useForm } from "react-hook-form";
+import {
+  useLocale,
+  useTranslations,
+} from 'next-intl';
+import Link from 'next/link';
+import {
+  FormProvider,
+  useForm,
+} from 'react-hook-form';
 
-import { useSetter } from "@/src/hooks/apiRequest";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@nextui-org/react";
+import { useSetter } from '@/src/hooks/apiRequest';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Button,
+  Input,
+} from '@nextui-org/react';
 
-import PasswordVisibility from "../PasswordVisibility";
+import PasswordVisibility from '../PasswordVisibility';
 import {
   inputsFields,
   RegisterSchema,
   RegisterSchemaType,
-} from "./RegisterSchema";
+} from './RegisterSchema';
 
 export default function Register() {
   const methods = useForm<RegisterSchemaType>({
@@ -24,6 +36,7 @@ export default function Register() {
     "password"
   );
   const locale = useLocale();
+  const t = useTranslations("Auth");
   const {
     handleSubmit,
     register,
@@ -51,12 +64,12 @@ export default function Register() {
     }
   }, [data, isPending]);
 
-  console.log(data);
-
   return (
     <div className="flex  px-4 justify-center items-center h-screen w-full">
       <div className="w-[600px]">
-        <h1 className="mb-[50px] text-2xl text-center uppercase">Register</h1>
+        <h1 className="mb-[50px] text-2xl text-center uppercase">
+          {t("register")}
+        </h1>
         <FormProvider {...methods}>
           <form
             className="w-full"
@@ -76,6 +89,7 @@ export default function Register() {
                     errors[inp.name]?.message
                   }
                   {...inp}
+                  label={t(inp?.label)}
                   type={inp?.type === "password" ? isVisiblePass : inp?.type}
                   endContent={
                     inp?.type === "password" ? (
@@ -88,27 +102,27 @@ export default function Register() {
                   variant="underlined"
                 />
               ))}
-            </div>
-            <div className="w-full mt-8  flex items-end">
               <div className="w-full  text-sm">
-                Have an account ?{" "}
+                {t("have_account")}{" "}
                 <Link
                   className="text-secondary-600 underline"
                   href={`/${locale}/auth/login`}
                 >
-                  Login
+                  {t("login")}
                 </Link>
               </div>
+            </div>
+            <div className="w-full mt-8  flex justify-end">
               <Button
                 form="register"
                 type="submit"
                 size="lg"
                 isLoading={isPending}
                 isDisabled={isPending}
-                className="w-[200px] "
+                className="w-[200px]"
                 color="primary"
               >
-                Registration
+                {t("registration")}
               </Button>
             </div>
           </form>

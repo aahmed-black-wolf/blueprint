@@ -6,8 +6,8 @@ export const LoginSchema = z.object({
 });
 
 export const inputsFields = [
-  { name: "userName", type: "text", label: "User Name" },
-  { name: "password", type: "password", label: "Password" },
+  { name: "userName", type: "text", label: "user_name" },
+  { name: "password", type: "password", label: "password" },
 ];
 
 export type LoginSchemaType = z.infer<typeof LoginSchema>;

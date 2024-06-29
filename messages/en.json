@@ -3,9 +3,32 @@
     "home": "Home",
     "comments": "Comments",
     "link1": "link1",
-    "link2": "link2"
+    "link2": "link2",
+    "lang": "Arabic",
+    "sign_as": "Signed in as",
+    "log_out": " Log Out",
+    "home_page": "Home Page"
   },
   "Notfound": {
     "message": "Page not found | 404"
+  },
+  "Comments": {
+    "submit": "Submit",
+    "write_an_comment": "Write a comment...",
+    "comment": "Comment"
+  },
+  "Auth": {
+    "registration": "registration",
+    "have_account": " Have an account ?",
+    "not_have_account": "Don't have an account ?",
+    "register": "register",
+    "login": "login",
+    "user_name": "User Name",
+    "password": "Password",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "confirm_password": "Confirm Password",
+    "sign_in": "Sign in"
   }
 }

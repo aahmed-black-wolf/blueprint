@@ -3,9 +3,32 @@
     "home": "الصفحه الرئسيه",
     "comments": "التعليقات",
     "link1": "رابط 1",
-    "link2": "رابط 2"
+    "link2": "رابط 2",
+    "lang": "الانجلزيه",
+    "sign_as": "مسجل الدخول كـ",
+    "log_out": "تسجيل الخروج",
+    "home_page": "الصفحه الرئسيه"
   },
   "Notfound": {
     "message": "الصفحه غير موجوده | 404"
+  },
+  "Comments": {
+    "submit": "ارسال",
+    "write_an_comment": "اضف تعليقك  ...",
+    "comment": "تعليق"
+  },
+  "Auth": {
+    "registration": "انشاء الحساب",
+    "have_account": "لديك حساب بالفعل ؟",
+    "not_have_account": "ليس لديك حساب ؟",
+    "register": "انشاء حساب",
+    "login": "تسجيل الدخول",
+    "user_name": "اسم المستخدم",
+    "password": "كلمه المرور",
+    "first_name": "الاسم الاول",
+    "last_name": "الاسم الاخير",
+    "email": "البريد الالكتروني",
+    "confirm_password": "تاكيد كلمه السر",
+    "sign_in": "تسجيل الدخول"
   }
 }

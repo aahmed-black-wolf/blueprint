@@ -1,5 +1,3 @@
-import { getCookie } from 'cookies-next';
-
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
@@ -25,7 +23,7 @@ export const siteConfig = {
     },
     {
       label: "comments",
-      href: `${getCookie("NEXT_LOCALE")}/comments`,
+      href: "/comments",
       id: "comments",
     },
     {
