@@ -20,7 +20,7 @@ import {
   DropdownTrigger,
 } from '@nextui-org/react';
 
-type Props = { user: UserData };
+type Props = { user: UserData | undefined };
 
 export default function User({ user }: Props) {
   const t = useTranslations("Home");
