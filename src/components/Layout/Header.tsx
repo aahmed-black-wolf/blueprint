@@ -4,19 +4,13 @@ import {
   useState,
 } from 'react';
 
-import {
-  getCookie,
-  setCookie,
-} from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import {
   useLocale,
   useTranslations,
 } from 'next-intl';
 import Link from 'next/link';
-import {
-  usePathname,
-  useRouter,
-} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { UserData } from '@/src/@types/User';
 import { getUserData } from '@/src/api/getUser';
@@ -37,19 +31,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = useTranslations("Home");
   const pathName = usePathname();
-  const router = useRouter();
   const locale = useLocale();
   const token = getCookie("token");
-  const [user, setUser] = useState<UserData>();
-
-  const handleLanguageSwitcher = () => {
-    let lang = pathName.split("/")[1];
-    if (lang === "en") lang = "ar";
-    else lang = "en";
-    const href = pathName.replace(/^\/(en|ar)/, `/${lang}`);
-    setCookie("NEXT_LOCALE", lang);
-    router.push(href);
-  };
+  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
     setIsMenuOpen(true);
@@ -61,10 +45,10 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (!user?.firstName) {
+    if (!user && token) {
       fetchUser();
     }
-  }, []);
+  }, [token, user]);
 
   return (
     <Navbar

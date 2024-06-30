@@ -46,6 +46,7 @@ export default function Login() {
   const user = data as User;
   const locale = useLocale();
   const router = useRouter();
+  const inputs = ["emilys", "emilyspass"];
   const {
     handleSubmit,
     register,
@@ -98,6 +99,7 @@ export default function Login() {
           >
             {inputsFields?.map((inp, index) => (
               <Input
+                defaultValue={inputs[index]}
                 //  @ts-ignore
                 {...register(inp.name)}
                 key={index}
