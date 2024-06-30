@@ -29,6 +29,7 @@
     "last_name": "Last Name",
     "email": "Email",
     "confirm_password": "Confirm Password",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "account_created": "Your account was created successfully"
   }
 }

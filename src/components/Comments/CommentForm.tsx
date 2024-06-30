@@ -80,7 +80,7 @@ export default function CommentForm() {
         <Textarea
           {...register("comment")}
           isInvalid={!!errors?.comment?.message}
-          errorMessage={!!errors?.comment?.message}
+          errorMessage={errors?.comment?.message}
           variant="faded"
           label={t("comment")}
           labelPlacement="outside"

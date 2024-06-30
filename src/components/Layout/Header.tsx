@@ -4,7 +4,10 @@ import {
   useState,
 } from 'react';
 
-import { setCookie } from 'cookies-next';
+import {
+  getCookie,
+  setCookie,
+} from 'cookies-next';
 import {
   useLocale,
   useTranslations,
@@ -15,14 +18,11 @@ import {
   useRouter,
 } from 'next/navigation';
 
+import { UserData } from '@/src/@types/User';
+import { getUserData } from '@/src/api/getUser';
 import { siteConfig } from '@/src/config/site';
 import {
-  Avatar,
   cn,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Navbar,
   NavbarBrand,
   NavbarMenu,
@@ -31,6 +31,7 @@ import {
 } from '@nextui-org/react';
 
 import BlueLogo from './BlueLogo';
+import User from './User';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +39,8 @@ export default function Header() {
   const pathName = usePathname();
   const router = useRouter();
   const locale = useLocale();
+  const token = getCookie("token");
+  const [user, setUser] = useState<UserData>();
 
   const handleLanguageSwitcher = () => {
     let lang = pathName.split("/")[1];
@@ -52,40 +55,24 @@ export default function Header() {
     setIsMenuOpen(true);
   }, [pathName]);
 
+  const fetchUser = async () => {
+    const userData = await getUserData(token as any);
+    setUser(userData);
+  };
+
+  useEffect(() => {
+    if (!user?.firstName) {
+      fetchUser();
+    }
+  }, []);
+
   return (
     <Navbar
       className={cn(pathName.includes("auth") && "hidden")}
       maxWidth="2xl"
     >
       <div className="sm:hidden flex justify-between w-full gap-6">
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              color="secondary"
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            {
-              siteConfig.settings?.map((item) => (
-                <DropdownItem key={item?.key}>{item?.name}</DropdownItem>
-              )) as any
-            }
-
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <User user={user} />
         <div className="flex items-center">
           <BlueLogo />
           <NavbarMenuToggle
@@ -109,35 +96,7 @@ export default function Header() {
             </Link>
           ))}
         </div>
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              color="secondary"
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">{t("sign_as")}</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem
-              onClick={handleLanguageSwitcher}
-              key="logout"
-              color="primary"
-            >
-              {t("lang")}
-            </DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              {t("log_out")}
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <User user={user} />
       </div>
       <NavbarMenu className="overflow-hidden bg-primary-300/20">
         {siteConfig.navItems.map((route, index) => (

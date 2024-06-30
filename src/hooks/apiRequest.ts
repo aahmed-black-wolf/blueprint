@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 import {
   useMutation,

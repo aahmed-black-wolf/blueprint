@@ -9,10 +9,12 @@ import {
   useTranslations,
 } from 'next-intl';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   FormProvider,
   useForm,
 } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { useSetter } from '@/src/hooks/apiRequest';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -43,6 +45,7 @@ export default function Register() {
     formState: { errors },
     reset,
   } = methods;
+  const router = useRouter();
   const { mutate, data, isPending } = useSetter({
     endPoint: "/users/add",
     key: "registerRequest",
@@ -59,9 +62,15 @@ export default function Register() {
   };
 
   useEffect(() => {
+    let timer: any;
     if (data && !isPending) {
+      toast.success(t("account_created"));
+      timer = setTimeout(() => router.push(`/${locale}/auth/login`));
       reset();
     }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [data, isPending]);
 
   return (

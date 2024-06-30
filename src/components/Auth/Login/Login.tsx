@@ -4,16 +4,19 @@ import React, {
   useState,
 } from 'react';
 
+import { setCookie } from 'cookies-next';
 import {
   useLocale,
   useTranslations,
 } from 'next-intl';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   FormProvider,
   useForm,
 } from 'react-hook-form';
 
+import { User } from '@/src/@types/User';
 import { useSetter } from '@/src/hooks/apiRequest';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -40,13 +43,16 @@ export default function Login() {
     endPoint: "/auth/login",
     key: "loginRequest",
   });
+  const user = data as User;
   const locale = useLocale();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
     formState: { errors },
     setError,
     reset,
+    setValue,
   } = methods;
 
   const loginRequest = (data: LoginSchemaType) => {
@@ -55,6 +61,11 @@ export default function Login() {
       password: data.password,
     });
   };
+
+  useEffect(() => {
+    setValue("userName", "emilys");
+    setValue("password", "emilyspass");
+  }, []);
 
   useEffect(() => {
     if (isError) {
@@ -67,6 +78,8 @@ export default function Login() {
 
   useEffect(() => {
     if (data && !isPending) {
+      setCookie("token", user.token);
+      router.replace("/");
       reset();
     }
   }, [data, isPending]);
